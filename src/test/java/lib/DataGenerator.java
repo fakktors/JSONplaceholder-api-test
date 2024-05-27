@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataGenerator {
-    public static Map<String, Object> getPostDataBody(){
+    public static Map<String, Object> generatePostDataBody(){
         Map<String, Object> body = new HashMap<>();
         body.put("id", 1);
         body.put("title", "Post Title");

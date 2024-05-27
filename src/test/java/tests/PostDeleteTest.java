@@ -1,11 +1,9 @@
 package tests;
 
-
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import lib.ApiRequests;
-import io.restassured.response.Response;
 import lib.BaseTestCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,10 +22,12 @@ public class PostDeleteTest extends BaseTestCase {
     public void deletePostById(){
         this.postId = 1;
 
-        Response responseDeleteResource = apiCoreRequests
-                .makeDeleteRequest(urlPosts, postId);
+        apiCoreRequests
+                .makeDeleteRequest(urlPosts, postId)
+                .then()
+                .assertThat()
+                .statusCode(200);
 
-        assertEquals(200, responseDeleteResource.getStatusCode());
         /*
          * Т.к это мок апи, дальнеший запрос не выолняется на проверку удаленного ресурса
          */

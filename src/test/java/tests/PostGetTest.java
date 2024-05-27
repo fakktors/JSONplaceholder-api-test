@@ -10,6 +10,7 @@ import lib.BaseTestCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Getting a resource cases")
@@ -24,11 +25,12 @@ public class PostGetTest extends BaseTestCase {
     public void getPostByIdTest() {
         postId = 1;
 
-        Response responsePost = apiCoreRequests
-                .makeGetRequest(urlPosts, postId);
-
-        assertEquals(200, responsePost.getStatusCode());
-        assertEquals(postId, responsePost.getBody().jsonPath().getInt("id"));
+        apiCoreRequests
+                .makeGetRequest(urlPosts, postId)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("id", equalTo(postId));
     }
 
     @Test
@@ -36,9 +38,12 @@ public class PostGetTest extends BaseTestCase {
     @DisplayName("Negative not found post")
     public void getPostNotFoundByIdTest() {
         Response responseFaultCode = apiCoreRequests
-                .makeGetRequest(urlPosts, postId);
+                .makeGetRequest(urlPosts, postId)
+                .then()
+                .assertThat()
+                .statusCode(404)
+                .extract().response();
 
-        assertEquals(404, responseFaultCode.getStatusCode());
         Assertions.assertJsonHasNotKey(responseFaultCode, "id");
     }
 }

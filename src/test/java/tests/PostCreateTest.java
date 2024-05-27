@@ -10,8 +10,6 @@ import lib.DataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @Epic("Create a resource cases")
 @Feature("Post api")
 public class PostCreateTest extends BaseTestCase {
@@ -24,9 +22,12 @@ public class PostCreateTest extends BaseTestCase {
     public void createPostTest(){
 
         Response responseSuccessCreate = apiCoreRequests
-                .makePostRequest(urlPosts, DataGenerator.getPostDataBody());
+                .makePostRequest(urlPosts, DataGenerator.generatePostDataBody())
+                .then()
+                .assertThat()
+                .statusCode(201)
+                .extract().response();
 
-        assertEquals(201, responseSuccessCreate.statusCode());
         Assertions.assertJsonHasKey(responseSuccessCreate, "id");
 
         /*

@@ -2,6 +2,8 @@ package lib;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -13,6 +15,8 @@ public class ApiRequests {
     public Response makeGetRequest(String url, int id){
         return given()
                 .filter(new AllureRestAssured())
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
                 .get(url + "/" + id)
                 .andReturn();
     }
@@ -21,6 +25,8 @@ public class ApiRequests {
     public Response makeDeleteRequest(String url, int id){
         return given()
                 .filter(new AllureRestAssured())
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
                 .delete(url + "/" + id)
                 .andReturn();
     }
@@ -29,6 +35,8 @@ public class ApiRequests {
     public Response makePutRequest(String url, int id, Map<String, Object> bodyData){
         return given()
                 .filter(new AllureRestAssured())
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
                 .body(bodyData)
                 .put(url + "/" + id)
                 .andReturn();
@@ -38,6 +46,8 @@ public class ApiRequests {
     public Response makePostRequest(String url, Map<String, Object> bodyData){
         return given()
                 .filter(new AllureRestAssured())
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
                 .body(bodyData)
                 .post(url)
                 .andReturn();

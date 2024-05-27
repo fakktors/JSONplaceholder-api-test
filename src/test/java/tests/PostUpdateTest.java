@@ -10,10 +10,6 @@ import lib.DataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
-
 @Epic("Updating a resource cases")
 @Feature("Post api")
 public class PostUpdateTest extends BaseTestCase {
@@ -23,7 +19,7 @@ public class PostUpdateTest extends BaseTestCase {
     @Test
     @Description("This test successfully update post by id")
     @DisplayName("Positive update post data and title")
-    public void getPostByIdTest() {
+    public void updatePostByIdTest() {
         this.postId = 1;
 
         Response responsePost = apiCoreRequests
@@ -32,13 +28,18 @@ public class PostUpdateTest extends BaseTestCase {
         String title = getIntFromJson(responsePost, "title");
         String body = getIntFromJson(responsePost, "body");
 
-        Response responsePut = apiCoreRequests
-                .makePutRequest(urlPosts, postId, DataGenerator.getPostDataBody());
-
-        assertEquals(responsePut.getStatusCode(), 200);
+        apiCoreRequests
+                .makePutRequest(urlPosts, postId, DataGenerator.generatePostDataBody())
+                .then()
+                .assertThat()
+                .statusCode(200);
 
         Response responseUpdatedPost = apiCoreRequests
-                .makeGetRequest(urlPosts, postId);
+                .makeGetRequest(urlPosts, postId)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract().response();
 
         /*
         Assertions.assertJsonHasNotValue(responseUpdatedPost, title);
