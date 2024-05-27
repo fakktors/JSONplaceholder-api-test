@@ -3,30 +3,28 @@ package tests;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.response.Response;
 import lib.ApiRequests;
-import lib.Assertions;
-import lib.BaseTestCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.*;
 
 @Epic("Getting a resource cases")
 @Feature("Post api")
-public class PostGetTest extends BaseTestCase {
+public class PostGetTest {
 
     private final ApiRequests apiCoreRequests = new ApiRequests();
+
+    private int postId = 0;
 
     @Test
     @Description("This test successfully get post by id")
     @DisplayName("Positive get post")
     public void getPostByIdTest() {
-        postId = 1;
+        this.postId = 1;
 
         apiCoreRequests
-                .makeGetRequest(urlPosts, postId)
+                .getPostRequest(postId)
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -37,13 +35,11 @@ public class PostGetTest extends BaseTestCase {
     @Description("This test unsuccessfully get post, id not found")
     @DisplayName("Negative not found post")
     public void getPostNotFoundByIdTest() {
-        Response responseFaultCode = apiCoreRequests
-                .makeGetRequest(urlPosts, postId)
+        apiCoreRequests
+                .getPostRequest(postId)
                 .then()
                 .assertThat()
                 .statusCode(404)
-                .extract().response();
-
-        Assertions.assertJsonHasNotKey(responseFaultCode, "id");
+                .body("id", not(hasKey("id")));
     }
 }

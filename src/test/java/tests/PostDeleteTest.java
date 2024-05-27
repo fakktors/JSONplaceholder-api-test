@@ -8,28 +8,26 @@ import lib.BaseTestCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @Epic("Delete a resource cases")
 @Feature("Post api")
 public class PostDeleteTest extends BaseTestCase {
 
     private final ApiRequests apiCoreRequests = new ApiRequests();
 
+    private int postId = 1;
+
     @Test
     @Description("This test successfully delete post by id")
     @DisplayName("Positive delete")
     public void deletePostById(){
-        this.postId = 1;
-
         apiCoreRequests
-                .makeDeleteRequest(urlPosts, postId)
+                .deletePostRequest(postId)
                 .then()
                 .assertThat()
                 .statusCode(200);
 
         /*
-         * Т.к это мок апи, дальнеший запрос не выолняется на проверку удаленного ресурса
+         * This is a mock API, the distant request is not executed while checking the remote resource
          */
     }
 }
