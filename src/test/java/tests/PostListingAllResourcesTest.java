@@ -27,7 +27,7 @@ public class PostListingAllResourcesTest {
 
         Map<String, Integer> wordCount = new HashMap<>();
 
-        Pattern wordPattern = Pattern.compile("\\b\\w+\\b");
+        var wordPattern = Pattern.compile("\\b\\w+\\b");
 
         for (Map<String, Object> post : posts) {
             String body = (String) post.get("body");

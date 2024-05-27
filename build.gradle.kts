@@ -18,10 +18,11 @@ java {
 val junitVersion = "5.10.0"
 val restAssuredVersion = "5.4.0"
 val allureVersion = "2.25.0"
-val sl4jVersion = "1.0.13.5"
+val sl4j = "2.0.4"
+val logback = "1.4.8"
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
     testImplementation("io.rest-assured:rest-assured:$restAssuredVersion")
@@ -31,8 +32,8 @@ dependencies {
     testImplementation("io.qameta.allure:allure-junit5")
     testImplementation("io.qameta.allure:allure-rest-assured")
 
-    testImplementation("com.guicedee.services:sl4j:$sl4jVersion")
-
+    implementation("ch.qos.logback:logback-classic:$logback")
+    implementation("org.slf4j:slf4j-api:$sl4j")
 }
 
 tasks.test {
