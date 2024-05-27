@@ -14,12 +14,12 @@ public class PostDeleteTest extends BaseTestCase {
 
     private final ApiRequests apiCoreRequests = new ApiRequests();
 
-    private int postId = 1;
-
     @Test
     @Description("This test successfully delete post by id")
     @DisplayName("Positive delete")
     public void deletePostById(){
+        int postId = 1;
+
         apiCoreRequests
                 .deletePostRequest(postId)
                 .then()

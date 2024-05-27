@@ -18,6 +18,7 @@ java {
 val junitVersion = "5.10.0"
 val restAssuredVersion = "5.4.0"
 val allureVersion = "2.25.0"
+val sl4jVersion = "1.0.13.5"
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
@@ -29,6 +30,9 @@ dependencies {
     testImplementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
     testImplementation("io.qameta.allure:allure-junit5")
     testImplementation("io.qameta.allure:allure-rest-assured")
+
+    testImplementation("com.guicedee.services:sl4j:$sl4jVersion")
+
 }
 
 tasks.test {

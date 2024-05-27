@@ -24,6 +24,7 @@ public class PostUpdateTest {
     public void updatePostByIdTest() {
         var postData = DataGenerator.generatePostDataBody();
 
+        //Getting post and save variable
         apiCoreRequests
                 .getPostRequest(postId)
                 .then()
@@ -31,12 +32,14 @@ public class PostUpdateTest {
                 .statusCode(200)
                 .body("id", equalTo(postId));
 
+        //Update post title and body
         apiCoreRequests
                 .putPostRequest(postId, postData)
                 .then()
                 .assertThat()
                 .statusCode(200);
 
+        //Checking that the title and body have been updated in the post
         apiCoreRequests
                 .getPostRequest(postId)
                 .then()

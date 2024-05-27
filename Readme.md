@@ -30,11 +30,7 @@ To run tests and generate Allure reports, use the following command:
 ```
 ./gradlew test
 ```
-After tests are executed, generate the Allure report using:
-```
-./gradlew allureReport
-```
-Viewing the Allure report is possible through the IDE look .index file:
+Viewing the Allure report is possible through the IDE or Web-Browser view .index file:
 ```
 build/reports/allure-report/allureReport
 ```

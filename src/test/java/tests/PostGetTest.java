@@ -15,13 +15,11 @@ public class PostGetTest {
 
     private final ApiRequests apiCoreRequests = new ApiRequests();
 
-    private int postId = 0;
-
     @Test
     @Description("This test successfully get post by id")
     @DisplayName("Positive get post")
     public void getPostByIdTest() {
-        this.postId = 1;
+        int postId = 1;
 
         apiCoreRequests
                 .getPostRequest(postId)
@@ -35,6 +33,8 @@ public class PostGetTest {
     @Description("This test unsuccessfully get post, id not found")
     @DisplayName("Negative not found post")
     public void getPostNotFoundByIdTest() {
+        int postId = 0;
+
         apiCoreRequests
                 .getPostRequest(postId)
                 .then()
